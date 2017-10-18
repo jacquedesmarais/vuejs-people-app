@@ -1,0 +1,11 @@
+<div id="app">
+  <h1>People and Bio's</h1>
+  <h6>People Count {{ people.length }}</h6>
+  <div v-for="person in people" v-on:click="toggleBio(person)">
+    <h3>{{ person.name }}</h3>
+    <h3 v-if="person.bioVisible">{{ person.bio }}</h3>
+  </div>
+  Name: <input v-model="newPersonName"><br>
+  Bio: <input v-model="newPersonBio"><br>
+  <button v-on:click="addPerson()">Add Person</button>
+</div>
