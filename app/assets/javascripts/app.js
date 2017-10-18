@@ -21,11 +21,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     },
     methods: {
-      toggleBio: function(person) {
-        if (person.bioVisible === false) {
-          person.bioVisible = true;
-        }
+      toggleBio: function(inputPerson) {
+        inputPerson.bioVisible = !inputPerson.bioVisible;
       },
+
       addPerson: function() {
         if (this.newPersonName && this.newPersonBio) {
           var newPerson = {
@@ -35,8 +34,13 @@ document.addEventListener("DOMContentLoaded", function(event) {
                           };
           this.people.push(newPerson);
           this.newPersonName = "";
-          this.newPersonBio = ""
+          this.newPersonBio = "";
         }
+      },
+
+      deletePerson: function(inputPerson) {
+        var index = this.people.indexOf(inputPerson);
+        this.people.splice(index, 1);
       }
 
     },
