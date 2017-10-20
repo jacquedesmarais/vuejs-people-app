@@ -2,23 +2,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
   var app = new Vue({
     el: '#app',
     data: {
-      people: [ 
-              {
-              name: "Jacque",
-              bio: "Likes to eat food and play with puppies.",
-              bioVisible: false
-              },
-              {
-              name: "Lindsey",
-              bio: "Likes to sew and go on trips.",
-              bioVisible: false
-              }
-              ],
+      people: [],
       newPersonName: "",
       newPersonBio: ""
     },
     mounted: function() {
-
+      $.get('/api/v1/people.json', function(data) {
+        this.people = data;
+      }.bind(this));
     },
     methods: {
       toggleBio: function(inputPerson) {
@@ -27,14 +18,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       addPerson: function() {
         if (this.newPersonName && this.newPersonBio) {
-          var newPerson = {
+          var params = {
                           name: this.newPersonName,
                           bio: this.newPersonBio,
-                          bioVisible: false
                           };
-          this.people.push(newPerson);
-          this.newPersonName = "";
-          this.newPersonBio = "";
+          $.post('/api/v1/people.json', params, function(newPerson) {
+            this.people.push(newPerson);
+            this.newPersonName = "";
+            this.newPersonBio = "";
+          }.bind(this));
         }
       },
 
