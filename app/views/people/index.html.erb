@@ -11,4 +11,7 @@
   Name: <input v-model="newPersonName"><br>
   Bio: <input v-model="newPersonBio"><br>
   <button v-on:click="addPerson()">Add Person</button>
+  <ul>
+    <li v-for="error in errors">{{ error }}</li>
+  </ul>
 </div>
