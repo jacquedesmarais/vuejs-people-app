@@ -1,13 +1,22 @@
 <div id="app">
+  <div>
+    Search Term: <input v-model="searchTermFilter" list="names">
+    <datalist id="names">
+      <option v-for="person in people">{{ person.name }}</option>
+    </datalist>
+  </div>
   <h1>People and Bio's</h1>
   <h6>People Count {{ people.length }}</h6>
-  <div v-for="person in people">
-    <h3 v-on:click="toggleBio(person)">{{ person.name }}</h3>
-    <div v-if="person.bioVisible">
-       <h3>{{ person.bio }}</h3>
-      <h6 v-on:click="deletePerson(person)">delete</h6>
+
+  <transition-group name="slide-right">
+    <div v-for="person in people" v-if="isValidPerson(person)" v-bind:key="person.id">
+      <h3 v-on:click="toggleBio(person)">{{ person.name }}</h3>
+      <div v-if="person.bioVisible">
+         <h3>{{ person.bio }}</h3>
+        <h6 v-on:click="deletePerson(person)">delete</h6>
+      </div>
     </div>
-  </div>
+  </transition-group>
   Name: <input v-model="newPersonName"><br>
   Bio: <input v-model="newPersonBio"><br>
   <button v-on:click="addPerson()">Add Person</button>
